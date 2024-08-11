@@ -9,9 +9,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/mydatabase?schema=public
+      DATABASE_URL: postgres://postgres:postgres@db:5432/mydatabase?schema=public
     depends_on:
       - db
+    entrypoint: ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
   
   db:
     image: postgres:15-alpine
